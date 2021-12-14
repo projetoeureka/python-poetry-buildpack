@@ -61,7 +61,7 @@ if [ "${POETRY_EXPORT_DEV_REQUIREMENTS:-0}" != "0" ] ; then
     EXPORT_PARAMETERS+=(--dev)
 fi
 
-poetry export -f "$REQUIREMENTS_FILE" "${EXPORT_PARAMETERS[@]}" | sed -e 's/^\(.* @ file:.*\)$/-e \1/' > "$REQUIREMENTS_FILE"
+poetry export -f "$REQUIREMENTS_FILE" "${EXPORT_PARAMETERS[@]}" | sed -e 's,^.* @ file://'"$BUILD_DIR"/',-e ,' > "$REQUIREMENTS_FILE"
 
 RUNTIME_FILE="runtime.txt"
 
